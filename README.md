@@ -1,34 +1,38 @@
-# AstroNvim Template
+# AstroNvim Config
 
 **NOTE:** This is for AstroNvim v4+
 
-A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+## Installing without Nixg
 
-## 🛠️ Installation
-
-#### Make a backup of your current nvim and shared folder
-
-```shell
-mv ~/.config/nvim ~/.config/nvim.bak
-mv ~/.local/share/nvim ~/.local/share/nvim.bak
-mv ~/.local/state/nvim ~/.local/state/nvim.bak
-mv ~/.cache/nvim ~/.cache/nvim.bak
+```sh
+git clone git@github.com:nicklayb/astronvim.git ~/.config/nvim
 ```
 
-#### Create a new user repository from this template
+## Installing as part as NixOS's flake
 
-Press the "Use this template" button above to create a new repository to store your user configuration.
+### 1. Add as Input
 
-You can also just clone this repository directly if you do not want to track your user configuration in GitHub.
-
-#### Clone the repository
-
-```shell
-git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim
+```nix
+{ }: {
+  inputs = {
+    astronvim = { url = "github:nicklayb/astronvim", flake = false };
+  };
+}
 ```
 
-#### Start Neovim
+### 2. Add to Home Manager
 
-```shell
-nvim
+```nix
+{ }: {
+  home.nboisvert.xdg.configFile."nvim".source = import inputs.astronvim;
+}
 ```
+
+### How to update it
+
+1. Clone as seperate nvim config `git clone git@github.com:nicklayb/astronvim.git ~/.config/nvim-astro`
+2. Update the seperate config
+3. Run nvim with this specific config `NVIM_APPNAME=nvim-astro nvim`
+4. Check everything works
+5. Commit, push
+6. Update NixOS Flake and rebuild system
