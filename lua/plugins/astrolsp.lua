@@ -14,7 +14,8 @@ return {
       "hls", 
       "rust_analyzer",
       "elixirls",
-      "elmls"
+      "elmls",
+      "ts_ls"
     })
   end,
 }
