@@ -7,5 +7,6 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.gleam" },
+  { import = "astrocommunity.test.vim-test" },
   -- import/override with your plugins folder
 }

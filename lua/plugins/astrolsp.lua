@@ -7,15 +7,14 @@
 return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
-  opts = function (plugin, opts)
-
+  opts = function(plugin, opts)
     opts.servers = opts.servers or {}
     vim.list_extend(opts.servers, {
-      "hls", 
+      "hls",
       "rust_analyzer",
       "elixirls",
       "elmls",
-      "ts_ls"
+      "ts_ls",
     })
   end,
 }
