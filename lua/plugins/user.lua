@@ -34,6 +34,7 @@ return {
     end,
   },
   {
+    -- Requires `bun` js software to be installed
     "wallpants/github-preview.nvim",
     cmd = { "GithubPreviewToggle" },
     keys = { "<leader>mpt" },
