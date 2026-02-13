@@ -31,7 +31,7 @@
               ];
 
               xdg.configFile."nvim" = {
-                source = self;
+                source = lib.cleanSource self;
                 recursive = true;
               };
             };
