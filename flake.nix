@@ -65,6 +65,10 @@
             deps
           ];
 
+          home.sessionVariables = {
+            NODEJS_22 = "${pkgs.nodejs_24}/bin";
+          };
+
           xdg.configFile."nvim" = {
             source = lib.cleanSource self;
             recursive = true;
