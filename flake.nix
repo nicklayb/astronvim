@@ -16,7 +16,7 @@
         };
       packages = pkgs: [
         pkgs.nil
-        pkgs.nodejs
+        pkgs.nodejs_24
         pkgs.ripgrep
         pkgs.fd
         pkgs.git
@@ -61,9 +61,10 @@
           deps = self.packages.${pkgs.system}.neovimDeps;
         in
         {
-          home.packages = [
-            deps
-          ];
+          programs.neovim = {
+            enable = true;
+            extraPackages = [deps];
+          }
 
           xdg.configFile."nvim" = {
             source = lib.cleanSource self;
