@@ -63,8 +63,8 @@
         {
           programs.neovim = {
             enable = true;
-            extraPackages = [deps];
-          }
+            extraPackages = [ deps ];
+          };
 
           xdg.configFile."nvim" = {
             source = lib.cleanSource self;
