@@ -59,12 +59,25 @@
         }:
         let
           deps = self.packages.${pkgs.system}.neovimDeps;
+
+          wrappedNeovim = pkgs.symlinkJoin {
+            name = "nvim";
+            paths = [ pkgs.neovim ];
+
+            buildInputs = [ pkgs.makeWrapper ];
+
+            postBuild = ''
+              wrapProgram $out/bin/nvim \
+                --set NODEJS_24 ${pkgs.nodejs_24}
+            '';
+          };
         in
         {
-          programs.neovim = {
-            enable = true;
-            extraPackages = [ deps ];
-          };
+
+          home.packages = [
+            wrappedNeovim
+          ]
+          ++ deps;
 
           xdg.configFile."nvim" = {
             source = lib.cleanSource self;
