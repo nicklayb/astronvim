@@ -4,6 +4,7 @@ return {
   build = ":Copilot auth",
   event = "BufReadPost",
   opts = {
+    copilot_node_command = vim.env.NODEJS_24 .. "/bin/node",
     suggestion = {
       auto_trigger = true,
       keymap = {
