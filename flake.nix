@@ -76,8 +76,8 @@
 
           home.packages = [
             wrappedNeovim
-          ]
-          ++ deps;
+            deps
+          ];
 
           xdg.configFile."nvim" = {
             source = lib.cleanSource self;
