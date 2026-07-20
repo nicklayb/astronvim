@@ -11,7 +11,9 @@ return {
         accept = false, -- handled by completion engine
       },
     },
-    status.level = vim.log.levels.OFF
+    status = {
+      level = vim.log.levels.OFF,
+    },
   },
   specs = {
     {
