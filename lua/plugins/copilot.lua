@@ -3,6 +3,7 @@ return {
   cmd = "Copilot",
   build = ":Copilot auth",
   event = "BufReadPost",
+  enabled = require("utils.features").enabled "copilot",
   opts = {
     copilot_node_command = vim.env.NODEJS_24 .. "/bin/node",
     suggestion = {

@@ -57,32 +57,56 @@
           lib,
           ...
         }:
-        let
-          deps = self.packages.${pkgs.system}.neovimDeps;
-
-          wrappedNeovim = pkgs.symlinkJoin {
-            name = "nvim";
-            paths = [ pkgs.neovim ];
-
-            buildInputs = [ pkgs.makeWrapper ];
-
-            postBuild = ''
-              wrapProgram $out/bin/nvim \
-                --set NODEJS_24 ${pkgs.nodejs_24}
+        {
+          options.astronvim.features = lib.mkOption {
+            type = lib.types.attrsOf lib.types.bool;
+            default = { };
+            example = {
+              copilot = false;
+            };
+            description = ''
+              Enable or disable optional AstroNvim plugins/features.
+              Keys correspond to feature names checked in Lua via
+              `require("utils.features").enabled("<name>")` (e.g. the
+              `copilot` plugin). Features not listed here default to enabled,
+              so this only needs to list the ones you want to turn off.
             '';
           };
-        in
-        {
 
-          home.packages = [
-            wrappedNeovim
-            deps
-          ];
+          config =
+            let
+              deps = self.packages.${pkgs.system}.neovimDeps;
 
-          xdg.configFile."nvim" = {
-            source = lib.cleanSource self;
-            recursive = true;
-          };
+              featureEnv = lib.mapAttrs' (
+                name: enabled: lib.nameValuePair "NVIM_FEATURE_${lib.toUpper name}" (if enabled then "1" else "0")
+              ) config.astronvim.features;
+
+              wrapFlags =
+                [ "--set NODEJS_24 ${pkgs.nodejs_24}" ]
+                ++ (lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") featureEnv);
+
+              wrappedNeovim = pkgs.symlinkJoin {
+                name = "nvim";
+                paths = [ pkgs.neovim ];
+
+                buildInputs = [ pkgs.makeWrapper ];
+
+                postBuild = ''
+                  wrapProgram $out/bin/nvim ${lib.concatStringsSep " " wrapFlags}
+                '';
+              };
+            in
+            {
+              home.packages = [
+                wrappedNeovim
+                deps
+              ];
+
+              xdg.configFile."nvim" = {
+                source = lib.cleanSource self;
+                recursive = true;
+              };
+            };
         };
     };
 }
