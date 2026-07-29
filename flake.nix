@@ -20,6 +20,7 @@
         pkgs.ripgrep
         pkgs.fd
         pkgs.git
+        pkgs.make
         pkgs.tree-sitter
         pkgs.claude-code
       ];
@@ -81,9 +82,10 @@
                 name: enabled: lib.nameValuePair "NVIM_FEATURE_${lib.toUpper name}" (if enabled then "1" else "0")
               ) config.astronvim.features;
 
-              wrapFlags =
-                [ "--set NODEJS_24 ${pkgs.nodejs_24}" ]
-                ++ (lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") featureEnv);
+              wrapFlags = [
+                "--set NODEJS_24 ${pkgs.nodejs_24}"
+              ]
+              ++ (lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") featureEnv);
 
               wrappedNeovim = pkgs.symlinkJoin {
                 name = "nvim";
