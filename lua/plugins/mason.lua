@@ -10,7 +10,6 @@ return {
       ensure_installed = {
         "lua-language-server",
         "stylua",
-        "tree-sitter-cli",
       },
       automatic_installation = {
         exclude = { "clangd" }
