@@ -20,7 +20,7 @@
         pkgs.ripgrep
         pkgs.fd
         pkgs.git
-        pkgs.make
+        pkgs.gnumake
         pkgs.tree-sitter
         pkgs.claude-code
       ];
