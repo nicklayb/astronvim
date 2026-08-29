@@ -12,7 +12,7 @@ return {
     vim.list_extend(opts.servers, {
       "hls",
       "rust_analyzer",
-      "elixirls",
+      "expert",
       "elmls",
       "ts_ls",
       "clangd",
@@ -21,9 +21,6 @@ return {
     opts.config = opts.config or {}
     opts.config.clangd = {
       cmd = { "clangd" },
-    }
-    opts.config.elixirls = {
-      cmd = { "elixir-ls" },
     }
   end,
 }

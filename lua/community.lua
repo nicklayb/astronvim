@@ -6,8 +6,8 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.elixir" },
   { import = "astrocommunity.ai.sidekick-nvim" },
   { import = "astrocommunity.recipes.ai" },
   { import = "astrocommunity.test.vim-test" },
-  -- import/override with your plugins folder
 }
